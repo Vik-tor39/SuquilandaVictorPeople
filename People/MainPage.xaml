@@ -21,24 +21,50 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    <StackLayout Padding="20" Spacing="10">
-        <Label x:Name="vsuquilanda_label" Text="Registro de Personas" Style="{StaticResource LabelStyle}" />
-        <Entry x:Name="vsuquilanda_entry" Placeholder="Ingrese un nombre" Text="{Binding InputName}" />
-        <Button x:Name="vsuquilanda_button_add" Text="Agregar Persona" Command="{Binding AddCommand}" Style="{StaticResource ButtonStyle}" />
-        <Label x:Name="vsuquilanda_status_label" Text="{Binding StatusMessage}" Style="{StaticResource LabelStyle}" />
-        <ListView x:Name="vsuquilanda_listview" ItemsSource="{Binding PeopleList}" SelectedItem="{Binding SelectedPerson}" Margin="0,10,0,0">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal" Padding="10">
-                            <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                            <Button Text="Eliminar" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference vsuquilanda_listview}}" CommandParameter="{Binding .}" Style="{StaticResource ButtonStyle}" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>
 
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="10">
+            
+            <Frame x:Name="vsuquilanda_card" CornerRadius="15" Padding="10" BackgroundColor="#E3F2FD" HasShadow="True">
+                <StackLayout Orientation="Vertical" Spacing="10" HorizontalOptions="Center">
+                    <!-- Imagen -->
+                    <Image Source="victor2.jpeg" 
+                           WidthRequest="120" 
+                           HeightRequest="120" 
+                           Aspect="AspectFill" 
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center" />
+                    <!-- Nombre -->
+                    <Label x:Name="vsuquilanda_name_label" 
+                           Text="Victor Suquilanda" 
+                           FontSize="24" 
+                           TextColor="Black" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" />
+                    <!-- Edad -->
+                    <Label x:Name="vsuquilanda_age_label" 
+                           Text="Edad: 24 años" 
+                           Style="{StaticResource LabelStyle}" />
+                </StackLayout>
+            </Frame>
+            
+            <Label x:Name="vsuquilanda_label" Text="Registro de Personas" Style="{StaticResource LabelStyle}" />
+            <Entry x:Name="vsuquilanda_entry" Placeholder="Ingrese un nombre" Text="{Binding InputName}" />
+            <Button x:Name="vsuquilanda_button_add" Text="Agregar Persona" Command="{Binding AddCommand}" Style="{StaticResource ButtonStyle}" />
+            <Label x:Name="vsuquilanda_status_label" Text="{Binding StatusMessage}" Style="{StaticResource LabelStyle}" />
+            <ListView x:Name="vsuquilanda_listview" ItemsSource="{Binding PeopleList}" SelectedItem="{Binding SelectedPerson}" Margin="0,10,0,0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Padding="10">
+                                <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                                <Button Text="Eliminar" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference vsuquilanda_listview}}" CommandParameter="{Binding .}" Style="{StaticResource ButtonStyle}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ScrollView>
+    
 </ContentPage>
