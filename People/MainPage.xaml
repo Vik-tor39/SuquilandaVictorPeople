@@ -3,29 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:People.Models"
              x:Class="People.MainPage" 
-             Title="Víctor Suquilanda"
-             BackgroundColor="{DynamicResource Light}">
+             Title="Víctor Suquilanda">
 
     <ContentPage.Resources>
         <ResourceDictionary>
+            <!-- Estilo para etiquetas -->
             <Style x:Key="LabelStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="TextColor" Value="DarkBlue" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="TextColor" Value="#333333" />
                 <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="Margin" Value="5,2" />
             </Style>
+            <!-- Estilo para botones -->
             <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#4CAF50" />
+                <Setter Property="BackgroundColor" Value="#00796B" />
                 <Setter Property="TextColor" Value="White" />
-                <Setter Property="CornerRadius" Value="10" />
-                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="HeightRequest" Value="45" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="10" />
+            </Style>
+            <!-- Estilo para la tarjeta -->
+            <Style x:Key="CardFrameStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#FFFFFF" />
+                <Setter Property="CornerRadius" Value="15" />
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="Padding" Value="15" />
+                <Setter Property="Margin" Value="10,5" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
+    <ContentPage.BackgroundColor>#F5F5F5</ContentPage.BackgroundColor>
+
     <ScrollView>
-        <StackLayout Padding="20" Spacing="10">
-            
-            <Frame x:Name="vsuquilanda_card" CornerRadius="15" Padding="10" BackgroundColor="#E3F2FD" HasShadow="True">
+        <StackLayout Padding="20" Spacing="15">
+            <!-- Tarjeta personalizada -->
+            <Frame x:Name="vsuquilanda_card" Style="{StaticResource CardFrameStyle}">
                 <StackLayout Orientation="Vertical" Spacing="10" HorizontalOptions="Center">
                     <!-- Imagen -->
                     <Image Source="victor2.jpeg" 
@@ -33,38 +47,56 @@
                            HeightRequest="120" 
                            Aspect="AspectFill" 
                            HorizontalOptions="Center" 
-                           VerticalOptions="Center" />
+                           VerticalOptions="Center"
+                           Margin="0,10" />
                     <!-- Nombre -->
                     <Label x:Name="vsuquilanda_name_label" 
                            Text="Victor Suquilanda" 
-                           FontSize="24" 
-                           TextColor="Black" 
+                           FontSize="22" 
+                           TextColor="#37474F" 
                            FontAttributes="Bold" 
                            HorizontalOptions="Center" />
                     <!-- Edad -->
                     <Label x:Name="vsuquilanda_age_label" 
                            Text="Edad: 24 años" 
-                           Style="{StaticResource LabelStyle}" />
+                           FontSize="16" 
+                           TextColor="#757575" 
+                           HorizontalOptions="Center" />
                 </StackLayout>
             </Frame>
-            
-            <Label x:Name="vsuquilanda_label" Text="Registro de Personas" Style="{StaticResource LabelStyle}" />
-            <Entry x:Name="vsuquilanda_entry" Placeholder="Ingrese un nombre" Text="{Binding InputName}" />
+
+            <!-- Contenido principal -->
+            <Label x:Name="vsuquilanda_label" Text="Registro de Personas" Style="{StaticResource LabelStyle}" FontSize="18" FontAttributes="Bold" TextColor="#212121" />
+
+            <Entry x:Name="vsuquilanda_entry" Placeholder="Ingrese un nombre" 
+                   Text="{Binding InputName}" 
+                   TextColor="Black"
+                   BackgroundColor="White" 
+                   HeightRequest="45" 
+                   Margin="0,5" 
+                   HorizontalOptions="FillAndExpand"
+                   PlaceholderColor="#9E9E9E" />
+
             <Button x:Name="vsuquilanda_button_add" Text="Agregar Persona" Command="{Binding AddCommand}" Style="{StaticResource ButtonStyle}" />
-            <Label x:Name="vsuquilanda_status_label" Text="{Binding StatusMessage}" Style="{StaticResource LabelStyle}" />
+
+            <Label x:Name="vsuquilanda_status_label" Text="{Binding StatusMessage}" Style="{StaticResource LabelStyle}" TextColor="#757575" />
+
+            <!-- ListView personalizado -->
             <ListView x:Name="vsuquilanda_listview" ItemsSource="{Binding PeopleList}" SelectedItem="{Binding SelectedPerson}" Margin="0,10,0,0">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal" Padding="10">
-                                <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
-                                <Button Text="Eliminar" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference vsuquilanda_listview}}" CommandParameter="{Binding .}" Style="{StaticResource ButtonStyle}" />
-                            </StackLayout>
+                            <Frame Style="{StaticResource CardFrameStyle}" Margin="0,5">
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" TextColor="#333333" FontSize="16" />
+                                    <Button Text="Eliminar" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference vsuquilanda_listview}}" CommandParameter="{Binding .}" Style="{StaticResource ButtonStyle}" WidthRequest="100" />
+                                </StackLayout>
+                            </Frame>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
     </ScrollView>
-    
+
 </ContentPage>
