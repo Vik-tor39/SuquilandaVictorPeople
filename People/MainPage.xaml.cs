@@ -9,8 +9,10 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
-	}
+	    BindingContext = new MainPageViewModel();
+    }
 
+    /*
     public void OnNewButtonClicked(object sender, EventArgs args)
     {
         statusMessage.Text = "";
@@ -26,6 +28,7 @@ public partial class MainPage : ContentPage
         List<Person> people = App.PersonRepo.GetAllPeople();
         peopleList.ItemsSource = people;
     }
+    */
 
 }
 

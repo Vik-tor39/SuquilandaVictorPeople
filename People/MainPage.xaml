@@ -3,37 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:People.Models"
              x:Class="People.MainPage" 
+             Title="Víctor Suquilanda"
              BackgroundColor="{DynamicResource Light}">
 
-    <Grid Padding="5" RowSpacing="5" ColumnSpacing="5"
-          RowDefinitions="Auto,Auto,Auto,Auto,*">
-
-        <Entry x:Name="newPerson"
-           Placeholder="Enter name" />
-
-        <Button Text="Add Person"
-            Grid.Row="1"
-            Clicked="OnNewButtonClicked" />
-
-        <Label x:Name="statusMessage"
-           TextColor="{StaticResource Primary}"
-           Grid.Row="2" />
-
-        <Button Text="Get All People"
-            Grid.Row="3"
-            Clicked="OnGetButtonClicked" />
-
-        <CollectionView x:Name="peopleList" Grid.Row="4">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Person">
-                    <Grid ColumnDefinitions="*,2*">
-                        <Label Text="{Binding Id}" TextColor="{StaticResource Primary}"/>
-                        <Label Grid.Column="1" Text="{Binding Name}" TextColor="{StaticResource Primary}"/>
-                    </Grid>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="TextColor" Value="DarkBlue" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#4CAF50" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="HeightRequest" Value="50" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <StackLayout Padding="20" Spacing="10">
+        <Label x:Name="vsuquilanda_label" Text="Registro de Personas" Style="{StaticResource LabelStyle}" />
+        <Entry x:Name="vsuquilanda_entry" Placeholder="Ingrese un nombre" Text="{Binding InputName}" />
+        <Button x:Name="vsuquilanda_button_add" Text="Agregar Persona" Command="{Binding AddCommand}" Style="{StaticResource ButtonStyle}" />
+        <Label x:Name="vsuquilanda_status_label" Text="{Binding StatusMessage}" Style="{StaticResource LabelStyle}" />
+        <ListView x:Name="vsuquilanda_listview" ItemsSource="{Binding PeopleList}" SelectedItem="{Binding SelectedPerson}" Margin="0,10,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" />
+                            <Button Text="Eliminar" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference vsuquilanda_listview}}" CommandParameter="{Binding .}" Style="{StaticResource ButtonStyle}" />
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
-    </Grid>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 
 </ContentPage>
